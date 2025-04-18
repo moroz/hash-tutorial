@@ -18,7 +18,7 @@ typedef struct {
 typedef struct {
   int capacity;
   int count;
-  Entry entries[];
+  Entry *entries;
 } Table;
 
 void initTable(Table *table);
@@ -26,5 +26,7 @@ void freeTable(Table *table);
 bool tableSet(Table *table, String *key, int value);
 bool tableGet(Table *table, String *key, int *value);
 bool tableDelete(Table *table, String *key);
+
+String *copyString(const char *chars);
 
 #endif
