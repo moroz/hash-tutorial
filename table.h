@@ -2,11 +2,12 @@
 #define TABLE_H
 
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdint.h>
 
 typedef struct {
   char *chars;
-  int length;
+  size_t length;
   uint32_t hash;
 } String;
 

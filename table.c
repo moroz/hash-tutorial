@@ -16,7 +16,7 @@ void freeTable(Table *table) {
   initTable(table);
 }
 
-static uint32_t hashString(const char *chars, int length) {
+static uint32_t hashString(const char *chars, const size_t length) {
   uint32_t hash = 2166136261u;
   for (int i = 0; i < length; i++) {
     hash = (hash ^ (uint8_t)chars[i]) * 16777619;
