@@ -1,5 +1,6 @@
 #include "./table.h"
 #include <criterion/criterion.h>
+#include <stdio.h>
 
 Test(Table, table_initialization) {
   Table table;
@@ -49,15 +50,14 @@ typedef struct {
   int value;
 } HashEntry;
 
-static const HashEntry ENTRIES[] = {
-  {"foo", 42}, {"bar", 21}, {"baz", 37}
-};
+static const HashEntry ENTRIES[] = {{"foo", 42}, {"bar", 21}, {"baz", 37}};
+static const int entryCount = sizeof(ENTRIES) / sizeof(HashEntry);
 
 Test(Table, tableMultipleEntries) {
   Table table;
   initTable(&table);
 
-  for (int i = 0, n = sizeof(ENTRIES) / sizeof(HashEntry); i < n; i++) {
+  for (int i = 0; i < entryCount; i++) {
     String *key = copyString(ENTRIES[i].key);
     const bool isNewKey = tableSet(&table, key, ENTRIES[i].value);
     cr_assert(isNewKey);
@@ -70,4 +70,11 @@ Test(Table, tableMultipleEntries) {
   freeString(key);
 
   cr_assert_eq(value, 42);
+}
+
+Test(Table, hashStringCollisions) {
+  for (int i = 0; i < entryCount; i++) {
+    String *key = copyString(ENTRIES[i].key);
+    printf("%s: %u, mod %d\n", key->chars, key->hash, key->hash & 7);
+  }
 }
