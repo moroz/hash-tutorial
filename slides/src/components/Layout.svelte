@@ -1,0 +1,26 @@
+<script lang="ts">
+  interface Props {
+    title: string;
+    children: any;
+    body: any;
+  }
+
+  const { title, children, body }: Props = $props();
+</script>
+
+<div class="layout">
+  <header><h2>{title}</h2></header>
+  <main>
+    {@render children?.()}
+  </main>
+</div>
+
+<style>
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 3rem;
+    width: 100%;
+  }
+</style>
