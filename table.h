@@ -36,4 +36,6 @@ bool tableDelete(Table *table, String *key);
 
 String *copyString(const char *chars);
 
+void freeString(String *string);
+
 #endif

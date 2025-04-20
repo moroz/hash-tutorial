@@ -43,3 +43,31 @@ Test(Table, tableSetGet) {
 
   freeTable(&table);
 }
+
+typedef struct {
+  char *key;
+  int value;
+} HashEntry;
+
+static const HashEntry ENTRIES[] = {
+  {"foo", 42}, {"bar", 21}, {"baz", 37}
+};
+
+Test(Table, tableMultipleEntries) {
+  Table table;
+  initTable(&table);
+
+  for (int i = 0, n = sizeof(ENTRIES) / sizeof(HashEntry); i < n; i++) {
+    String *key = copyString(ENTRIES[i].key);
+    const bool isNewKey = tableSet(&table, key, ENTRIES[i].value);
+    cr_assert(isNewKey);
+  }
+
+  int value;
+  String *key = copyString("foo");
+  const bool exists = tableGet(&table, key, &value);
+  cr_assert(exists);
+  freeString(key);
+
+  cr_assert_eq(value, 42);
+}

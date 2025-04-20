@@ -32,6 +32,11 @@ String *copyString(const char *chars) {
   return result;
 }
 
+void freeString(String *string) {
+  free(string->chars);
+  free(string);
+}
+
 static bool compareKey(const String *a, const String *b) {
   return a->length == b->length && a->hash == b->hash;
 }
