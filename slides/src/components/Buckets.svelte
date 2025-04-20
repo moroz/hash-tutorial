@@ -5,7 +5,7 @@
   };
 
   interface Props {
-    values: Entry[];
+    values: (Entry | null)[];
   }
 
   const { values }: Props = $props();
@@ -14,17 +14,17 @@
 <table>
   <thead>
     <tr>
-      <th data-col="index"></th>
+      <th scope="row"></th>
       <th>key</th>
       <th>value</th>
     </tr>
   </thead>
   <tbody>
     {#each values as entry, i}
-      <tr>
-        <td data-col="index">{i}</td>
-        <td>{entry.key ?? ""}</td>
-        <td>{entry.value ?? ""}</td>
+      <tr class={{ empty: !entry }}>
+        <th scope="row">{i}</th>
+        <td>{entry?.key ? `"${entry.key}"` : "NULL"}</td>
+        <td>{entry?.value ? entry.value : "0"}</td>
       </tr>
     {/each}
   </tbody>
@@ -33,19 +33,31 @@
 <style>
   table {
     table-layout: fixed;
-    width: 800px;
+    width: 600px;
+    text-align: center;
     border-collapse: collapse;
     font-size: 1.25rem;
   }
 
+  .empty {
+    td:not(:first-child) {
+      color: #8c8c8c;
+    }
+  }
+
+  tr:not(.empty) td:not(:first-child) {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
   td,
   th {
-    border: 1px solid currentColor;
+    border: 1px solid #fff;
     height: 40px;
   }
 
-  [data-col="index"] {
-    width: 4rem;
+  th[scope="row"] {
+    width: 3rem;
+    text-align: center;
     border-left-color: transparent;
     border-top-color: transparent;
     border-bottom-color: transparent;

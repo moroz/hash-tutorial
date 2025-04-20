@@ -2,10 +2,9 @@
   interface Props {
     title: string;
     children: any;
-    body: any;
   }
 
-  const { title, children, body }: Props = $props();
+  const { title, children }: Props = $props();
 </script>
 
 <div class="layout">
@@ -22,5 +21,9 @@
     height: 100vh;
     padding: 3rem;
     width: 100%;
+  }
+
+  h2 {
+    margin: 0;
   }
 </style>

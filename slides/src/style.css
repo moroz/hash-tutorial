@@ -2,7 +2,7 @@
   --bg: #132738;
   --text-hl: #b7f9b2;
   --font-mono: "CaskaydiaMono Nerd Font", "CaskaydiaMono NF";
-  --font-sans: Roboto;
+  --font-sans: Roboto, system-ui;
 }
 
 *,
@@ -36,6 +36,7 @@ body {
   font-family: Roboto;
   background: var(--bg);
   color: #fff;
+  font-family: var(--font-sans);
 }
 
 h2 {
@@ -46,11 +47,9 @@ h2 {
   margin-bottom: 1.5rem;
 }
 
-p:not([class]) {
-  min-width: 800px;
+p {
   font-size: 2rem;
-  margin-inline: auto;
-  line-height: 1.5;
+  /* line-height: 1.5; */
 }
 
 pre {
