@@ -1,10 +1,10 @@
 <script lang="ts">
-interface Props {
-  title: string;
-  children: any;
-}
+  interface Props {
+    title: string;
+    children: any;
+  }
 
-const { title, children }: Props = $props();
+  const { title, children }: Props = $props();
 </script>
 
 <div class="layout">
@@ -15,18 +15,18 @@ const { title, children }: Props = $props();
 </div>
 
 <style>
-.layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 3rem;
-  width: 100%;
-}
+  .layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 3rem;
+    width: 100%;
+  }
 
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-}
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
 </style>

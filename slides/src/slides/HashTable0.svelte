@@ -1,17 +1,17 @@
 <script lang="ts">
-import Buckets from "../components/Buckets.svelte";
-import Layout from "../components/Layout.svelte";
+  import Buckets from "../components/Buckets.svelte";
+  import Layout from "../components/Layout.svelte";
 
-const values = [
-  null,
-  null,
-  { key: "bar", value: 69 },
-  null,
-  null,
-  null,
-  null,
-  null,
-];
+  const values = [
+    null,
+    null,
+    { key: "bar", value: 69 },
+    null,
+    null,
+    null,
+    null,
+    null,
+  ];
 </script>
 
 <Layout title="How a hash table works">
@@ -21,6 +21,6 @@ const values = [
     Each bucket stores a key and a value.
   </p>
   <div class="flex w-full flex-1 flex-col items-center justify-center">
-    <Buckets values={values} class="-ml-12" />
+    <Buckets {values} class="-ml-12" />
   </div>
 </Layout>

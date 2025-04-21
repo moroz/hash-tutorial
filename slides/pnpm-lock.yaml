@@ -35,6 +35,9 @@ importers:
       "@tsconfig/svelte":
         specifier: ^5.0.4
         version: 5.0.4
+      prettier:
+        specifier: ^3.5.3
+        version: 3.5.3
       prettier-plugin-svelte:
         specifier: ^3.3.3
         version: 3.3.3(prettier@3.5.3)(svelte@5.20.5)

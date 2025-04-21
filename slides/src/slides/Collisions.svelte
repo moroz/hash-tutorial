@@ -1,25 +1,23 @@
 <script lang="ts">
   import Buckets from "../components/Buckets.svelte";
   import Layout from "../components/Layout.svelte";
-  import FireText from "../components/FireText.svelte";
   import CodeSnippet from "../components/CodeSnippet.svelte";
   import Entry from "../components/Entry.svelte";
   import Arrow from "../components/Arrow.svelte";
-  import { onMount } from "svelte";
 
   const values = [
     null,
     null,
     { key: "bar", value: 69 },
+    { key: "baz", value: 420, pending: true },
     null,
     null,
     null,
-    null,
-    { key: "foo", value: 42, pending: true },
+    { key: "foo", value: 42 },
   ];
 
-  const snippet = `# Inserting key = "foo", value = 42
-index = hash("foo") % 8 # 7`;
+  const snippet = `# Inserting key = "baz", value = 420
+index = hash("baz") % 8 # 2`;
 
   let entry: HTMLTableElement | null = $state(null);
   let table: HTMLTableElement | null = $state(null);
@@ -27,41 +25,31 @@ index = hash("foo") % 8 # 7`;
   let p1 = $state<{ x: number; y: number } | null>(null);
   let p2 = $state<{ x: number; y: number } | null>(null);
 
-  function calculateArrow() {
+  $effect(() => {
     if (!entry || !table) return;
     const r1 = entry.getBoundingClientRect();
     p1 = { x: r1.right, y: r1.top + r1.height / 2 };
-    const row = table.querySelector("tbody tr:last-child");
+    const row = table.querySelector("tbody tr:nth-child(4)");
     if (!row) return;
     const r2 = row.getBoundingClientRect();
-    p2 = { x: r2.left, y: r2.top + r2.height / 2 - 5 };
-  }
-
-  onMount(() => {
-    calculateArrow();
-
-    window.addEventListener("resize", calculateArrow);
-
-    return () => {
-      window.removeEventListener("resize", calculateArrow);
-    };
+    p2 = { x: r2.left, y: r2.top + r2.height / 2 };
   });
 </script>
 
-<Layout title="Hash function">
+<Layout title="Handling collisions">
   <p class="h-[150px]">
-    The secret sauce that makes a hash table <FireText>blazingly fast</FireText>
-    is a <strong>hash function</strong>.<br />
-    Whenever you <strong>look up</strong> an entry, the hash function converts
-    the <strong>key</strong> to a <strong>number</strong>.<br />When you
-    <strong>reduce this number modulo</strong>
-    the array's <strong>capacity</strong> (size), you get the item's
-    <strong>index</strong>.
+    When the hashes of <strong>two different keys</strong> modulo the array size
+    end up pointing to <strong>the same index</strong>, a&nbsp;<strong
+      >key collision</strong
+    >
+    occurs.<br />We use the <strong>next available bucket</strong> instead.<br
+    />If the search reaches the <strong>end of the array</strong>, start from
+    the beginning.
   </p>
   <div class="my-auto grid grid-cols-2 grid-rows-2 items-start justify-center">
     <CodeSnippet language="python" code={snippet} class="mt-[50px]" />
     <div class="col-1 row-2 mt-8">
-      <Entry key="foo" value={42} bind:entry />
+      <Entry key="baz" value={420} bind:entry />
     </div>
     <div class="row-span-2 grid place-items-center">
       <Buckets {values} bind:table />

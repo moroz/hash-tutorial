@@ -1,5 +1,6 @@
 <script lang="ts">
   type Entry = {
+    pending?: boolean;
     key: string | null;
     value: number | null;
   };
@@ -23,7 +24,7 @@
   </thead>
   <tbody>
     {#each values as entry, i}
-      <tr class={{ empty: !entry }}>
+      <tr class={{ empty: !entry, pending: entry?.pending }}>
         <th scope="row">{i}</th>
         <td>{entry?.key ? `"${entry.key}"` : "NULL"}</td>
         <td>{entry?.value ? entry.value : "0"}</td>
@@ -43,7 +44,7 @@
   }
 
   .empty {
-    td:not(:first-child) {
+    td {
       @apply bg-gray-800 text-gray-400;
     }
   }
@@ -52,8 +53,12 @@
     height: 50px;
   }
 
-  tr:not(.empty) td:not(:first-child) {
+  tr:not(.empty) td {
     @apply bg-green-600 text-white;
+  }
+
+  tr.pending td {
+    @apply bg-neutral-600 text-neutral-300;
   }
 
   td,
