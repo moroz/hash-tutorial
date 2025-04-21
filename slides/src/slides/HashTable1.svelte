@@ -1,36 +1,42 @@
 <script lang="ts">
   import Buckets from "../components/Buckets.svelte";
   import Layout from "../components/Layout.svelte";
+  import FireText from "../components/FireText.svelte";
+  import CodeSnippet from "../components/CodeSnippet.svelte";
+  import Entry from "../components/Entry.svelte";
 
   const values = [
     null,
     null,
-    { key: "bar", value: 420 },
-    { key: "baz", value: 69 },
+    { key: "bar", value: 69 },
     null,
     null,
     null,
-    { key: "foo", value: 42 },
+    null,
+    null,
   ];
+
+  const snippet = `# Inserting key = "foo", value = 42
+index = hash("foo") % 8 # 7`;
 </script>
 
-<Layout title="How a hash table works (1)">
+<Layout title="Hash function">
   <p>
-    A hash table is, in its essence, a <strong>dynamic array</strong>.<br />Each
-    <strong>entry</strong> in this array is called a <strong>bucket</strong>. It
-    stores both the key and the value.
+    The secret sauce that makes a hash table <FireText>blazingly fast</FireText>
+    is a <strong>hash function</strong>.<br />
+    Whenever you <strong>look up</strong> an entry, the hash function converts
+    the <strong>key</strong> to a <strong>number</strong>.<br />When you
+    <strong>reduce it modulo</strong>
+    the array's <strong>capacity</strong> (size), you get the item's
+    <strong>index</strong>.
   </p>
-  <div class="container">
-    <Buckets {values} />
+  <div class="grid grid-cols-2 flex-1 items-center justify-center grid-rows-2">
+    <CodeSnippet language="python" code={snippet} />
+    <div class="col-1 row-2">
+      <Entry key="foo" value={42} />
+    </div>
+    <div class="grid place-items-center row-span-2">
+      <Buckets {values} />
+    </div>
   </div>
 </Layout>
-
-<style>
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-  }
-</style>

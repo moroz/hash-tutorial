@@ -6,12 +6,13 @@
 
   interface Props {
     values: (Entry | null)[];
+    class?: string;
   }
 
-  const { values }: Props = $props();
+  const { values, class: className }: Props = $props();
 </script>
 
-<table>
+<table class={className}>
   <thead>
     <tr>
       <th scope="row"></th>
@@ -31,28 +32,34 @@
 </table>
 
 <style>
+  @reference "../style.css";
+
   table {
-    table-layout: fixed;
+    @apply table-fixed text-center border-collapse;
+
     width: 600px;
-    text-align: center;
-    border-collapse: collapse;
     font-size: 1.75rem;
-    margin-left: -3em; /* To offset the index column */
   }
 
   .empty {
     td:not(:first-child) {
-      color: #8c8c8c;
+      @apply bg-gray-800 text-gray-400;
     }
   }
 
   tr:not(.empty) td:not(:first-child) {
-    background: rgba(255, 255, 255, 0.1);
+    @apply bg-green-600 text-white;
   }
 
   td,
   th {
     border: 1px solid #fff;
+  }
+
+  thead th {
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
   }
 
   th[scope="row"] {

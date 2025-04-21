@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   --bg: #132738;
   --text-hl: #b7f9b2;
@@ -95,4 +97,8 @@ section {
   padding-inline: 0.125em;
   line-height: 1.25;
   border-radius: 2px;
+}
+
+.hljs-comment {
+  @apply text-gray-400!;
 }

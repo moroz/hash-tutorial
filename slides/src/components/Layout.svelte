@@ -8,7 +8,7 @@
 </script>
 
 <div class="layout">
-  <header><h2>{title}</h2></header>
+  <header><h2 class="font-bold text-3xl mt-0 mb-2">{title}</h2></header>
   <main>
     {@render children?.()}
   </main>
@@ -23,13 +23,10 @@
     width: 100%;
   }
 
-  h2 {
-    margin: 0;
-  }
-
   main {
     flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
 </style>
