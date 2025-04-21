@@ -36,7 +36,8 @@
     width: 600px;
     text-align: center;
     border-collapse: collapse;
-    font-size: 1.25rem;
+    font-size: 1.75rem;
+    margin-left: -3em; /* To offset the index column */
   }
 
   .empty {
@@ -52,11 +53,10 @@
   td,
   th {
     border: 1px solid #fff;
-    height: 40px;
   }
 
   th[scope="row"] {
-    width: 3rem;
+    width: 3em;
     text-align: center;
     border-left-color: transparent;
     border-top-color: transparent;

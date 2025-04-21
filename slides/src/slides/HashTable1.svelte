@@ -14,7 +14,7 @@
   ];
 </script>
 
-<Layout title="How a hash table works">
+<Layout title="How a hash table works (1)">
   <p>
     A hash table is, in its essence, a <strong>dynamic array</strong>.<br />Each
     <strong>entry</strong> in this array is called a <strong>bucket</strong>. It

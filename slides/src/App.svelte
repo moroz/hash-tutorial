@@ -1,10 +1,11 @@
 <script lang="ts">
   import Hash0 from "./slides/HashTable0.svelte";
+  import Hash1 from "./slides/HashTable1.svelte";
   import style from "svelte-highlight/styles/horizon-dark";
   import hljs from "highlight.js/lib/core";
   import c from "highlight.js/lib/languages/c";
 
-  const slides = [Hash0];
+  const slides = [Hash0, Hash1];
 
   const qs = new URLSearchParams(location.search);
   const activeIndex = (() => {
