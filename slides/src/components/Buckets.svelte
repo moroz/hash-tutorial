@@ -7,12 +7,13 @@
   interface Props {
     values: (Entry | null)[];
     class?: string;
+    table?: any;
   }
 
-  const { values, class: className }: Props = $props();
+  let { values, class: className, table = $bindable() }: Props = $props();
 </script>
 
-<table class={className}>
+<table class={className} bind:this={table}>
   <thead>
     <tr>
       <th scope="row"></th>
@@ -45,6 +46,10 @@
     td:not(:first-child) {
       @apply bg-gray-800 text-gray-400;
     }
+  }
+
+  tr {
+    height: 50px;
   }
 
   tr:not(.empty) td:not(:first-child) {

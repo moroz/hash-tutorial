@@ -6,11 +6,15 @@
 
   const langs = { c, python };
 
-  const { code, language = "c" } = $props();
+  const { code, language = "c", class: className = undefined } = $props();
 </script>
 
 <svelte:head>
   {@html style}
 </svelte:head>
 
-<Highlight language={langs[language as keyof typeof langs]} {code} />
+<Highlight
+  language={langs[language as keyof typeof langs]}
+  {code}
+  class={className}
+/>
