@@ -36,7 +36,7 @@
   @reference "../style.css";
 
   table {
-    @apply table-fixed text-center border-collapse;
+    @apply table-fixed border-collapse text-center;
 
     width: 600px;
     font-size: 1.75rem;

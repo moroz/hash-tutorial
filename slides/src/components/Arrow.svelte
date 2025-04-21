@@ -13,7 +13,6 @@
   }
 
   const { p1, p2 }: Props = $props();
-  $inspect(p1, p2);
 
   let arrow = $derived.by(() => {
     if (!p1 || !p2) return [];
@@ -32,7 +31,7 @@
 
   function getViewport() {
     width = window.visualViewport?.width;
-    height = window.visualViewport?.width;
+    height = window.visualViewport?.height;
   }
 
   onMount(() => {
