@@ -50,8 +50,25 @@ typedef struct {
   int value;
 } HashEntry;
 
-static const HashEntry ENTRIES[] = {{"foo", 42}, {"bar", 21}, {"baz", 37}};
+static const HashEntry ENTRIES[] = {{"foo", 42},           {"bar", 69},
+                                    {"baz", 420},          {"bepis", 1337},
+                                    {"power level", 9001}, {"stonks", -1000}};
+
 static const int entryCount = sizeof(ENTRIES) / sizeof(HashEntry);
+
+static void debugTable(Table *table) {
+  printf("{\n");
+  for (int i = 0; i < table->capacity; i++) {
+    Entry *entry = &table->entries[i];
+    if (entry->key == NULL) {
+      printf("null,\n");
+      continue;
+    }
+
+    printf("{key: \"%s\", \"value\": %d}\n", entry->key->chars, entry->value);
+  }
+  printf("}\n");
+}
 
 Test(Table, tableMultipleEntries) {
   Table table;
@@ -62,6 +79,12 @@ Test(Table, tableMultipleEntries) {
     const bool isNewKey = tableSet(&table, key, ENTRIES[i].value);
     cr_assert(isNewKey);
   }
+
+  debugTable(&table);
+
+  String *new = copyString("not stonks");
+  tableSet(&table, new, 1000);
+  debugTable(&table);
 
   int value;
   String *key = copyString("foo");

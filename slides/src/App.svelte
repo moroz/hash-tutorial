@@ -5,8 +5,9 @@
   import style from "svelte-highlight/styles/horizon-dark";
   import hljs from "highlight.js/lib/core";
   import c from "highlight.js/lib/languages/c";
+  import Growing from "./slides/Growing.svelte";
 
-  const slides = [Hash0, Hash1, Collisions];
+  const slides = [Hash0, Hash1, Collisions, Growing];
 
   const qs = new URLSearchParams(location.search);
   const activeIndex = (() => {
