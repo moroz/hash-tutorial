@@ -9,7 +9,7 @@
 </script>
 
 <table
-  class="table-fixed border-collapse border w-[calc(600px_-_3rem)] text-center bg-green-600 text-[1.75rem] h-[50px]"
+  class="table-fixed border-collapse border w-[calc(700px_-_3em)] text-center bg-green-600 text-3xl h-[60px]"
   bind:this={entry}
 >
   <tbody>

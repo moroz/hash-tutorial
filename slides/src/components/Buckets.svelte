@@ -14,33 +14,44 @@
   let { values, class: className, table = $bindable() }: Props = $props();
 </script>
 
-<table class={className} bind:this={table}>
-  <thead>
-    <tr>
-      <th scope="row"></th>
-      <th>key</th>
-      <th>value</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each values as entry, i}
-      <tr class={{ empty: !entry, pending: entry?.pending }}>
-        <th scope="row">{i}</th>
-        <td>{entry?.key ? `"${entry.key}"` : "NULL"}</td>
-        <td>{entry?.value ? entry.value : "0"}</td>
+<div class="wrapper">
+  <table class={className} bind:this={table}>
+    <thead>
+      <tr>
+        <th scope="row"></th>
+        <th>key</th>
+        <th>value</th>
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {#each values as entry, i}
+        <tr class={{ empty: !entry, pending: entry?.pending }}>
+          <th scope="row">{i}</th>
+          <td>{entry?.key ? `"${entry.key}"` : "NULL"}</td>
+          <td>{entry?.value ? entry.value : "0"}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
 
 <style>
   @reference "../style.css";
 
+  .wrapper {
+    --table-width: 650px;
+    width: calc(var(--table-width) - 3em);
+    display: flex;
+    justify-content: flex-end;
+
+    @apply text-3xl;
+  }
+
   table {
     @apply table-fixed border-collapse text-center;
 
-    width: 600px;
-    font-size: 1.75rem;
+    width: var(--table-width);
+    flex-shrink: 0;
   }
 
   .empty {
@@ -50,7 +61,7 @@
   }
 
   tr {
-    height: 50px;
+    height: 60px;
   }
 
   tr:not(.empty) td {

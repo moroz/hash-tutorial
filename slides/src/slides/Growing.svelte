@@ -71,16 +71,32 @@
 
   $effect(() => {
     recalculateArrows();
+
+    window.addEventListener("resize", recalculateArrows);
+
+    return () => {
+      window.removeEventListener("resize", recalculateArrows);
+    };
   });
 </script>
 
 <Layout title="Tabular enlargement">
-  <div class="grid grid-cols-2">
-    <div class="flex justify-start items-start">
+  <p>
+    When a table becomes <strong>too full</strong> (when it reaches the
+    <strong>maximum load factor</strong>), we need to <strong>resize</strong>
+    it.<br />We allocate a new, larger table, and
+    <strong>insert all existing entries</strong>, one by one.<br />Some entries
+    will end up at new indices.
+  </p>
+
+  <div class="flex gap-[500px] items-center m-auto">
+    <div class="flex justify-start flex-col text-center gap-2">
       <Buckets values={smaller} bind:table={left} />
+      <span class="text-xl">Old table: 6/8, load factor: 0.75.</span>
     </div>
-    <div class="flex justify-end">
+    <div class="flex justify-end text-center flex-col gap-2">
       <Buckets values={larger} bind:table={right} />
+      <span class="text-xl">New table: 6/16, load factor: 0.375.</span>
     </div>
   </div>
 
