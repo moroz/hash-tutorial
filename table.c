@@ -19,7 +19,7 @@ void freeTable(Table *table) {
 static uint32_t hashString(const char *chars, const size_t length) {
   uint32_t hash = 2166136261u;
   for (int i = 0; i < length; i++) {
-    hash = (hash ^ (uint8_t) chars[i]) * 16777619;
+    hash = (hash ^ (uint8_t)chars[i]) * 16777619;
   }
   return hash;
 }
@@ -43,7 +43,8 @@ static bool compareKey(const String *a, const String *b) {
 
 static Entry *findEntry(Entry *entries, const int capacity, const String *key) {
   // Begin looking for an index from key hash % capacity
-  // since capacity will always be a power of 2, hash % capacity == hash & (capacity - 1)
+  // since capacity will always be a power of 2, hash % capacity == hash &
+  // (capacity - 1)
   uint32_t index = key->hash & (capacity - 1);
   for (;;) {
     Entry *entry = &entries[index];
@@ -103,7 +104,8 @@ bool tableSet(Table *table, String *key, const int value) {
 }
 
 bool tableGet(const Table *table, const String *key, int *value) {
-  if (table->count == 0) return false;
+  if (table->count == 0)
+    return false;
 
   const Entry *entry = findEntry(table->entries, table->capacity, key);
   if (entry->key == NULL) {

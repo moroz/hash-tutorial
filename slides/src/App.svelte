@@ -6,8 +6,11 @@
   import hljs from "highlight.js/lib/core";
   import c from "highlight.js/lib/languages/c";
   import Growing from "./slides/Growing.svelte";
+  import Title from "./slides/Title.svelte";
+  import Demo from "./slides/Demo.svelte";
+  import Definition from "./slides/Definition.svelte";
 
-  const slides = [Hash0, Hash1, Collisions, Growing];
+  const slides = [Title, Definition, Demo, Hash0, Hash1, Collisions, Growing];
 
   const qs = new URLSearchParams(location.search);
   const activeIndex = (() => {
