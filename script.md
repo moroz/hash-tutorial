@@ -78,24 +78,30 @@ If you are on macOS and have a setup similar to mine, at this point you are goin
 You can fix this by creating a file called `.clangd` in the project directory.
 In this file, add these three lines, telling Clangd where to find header files for the Criterion framework.
 
-Define a test example using Criterion's `Test` macro. This macro takes two parameters: the name of a test suite, and the name of the test example. Let's call the test suite "Table" and the example "initResizeFree", because we are going to test the constructor, the `growTable` function, and the destructor.
+Back in test.c, define a test example using Criterion's `Test` macro.
+This macro takes two parameters: the name of a test suite, and the name of the test example. Let's call the test suite "Table" and the example "initResizeFree", because we are going to test the constructor, the `growTable` function, and the destructor.
 In the test example, declare a Table and call `initTable` with a pointer to it.
 Using the `cr_assert_eq` macro, assert that all fields in the struct are now set to zero values.
 
-Next, let's write a Makefile. On all platforms, we're going to have to the linker flag `-lcriterion`. This tells the linker to link against the Criterion library.
-Then, we're going to add some conditional logic. Using `uname`, we check if we are building the program on macOS, and if that is the case, we add additional compiler and linker flags to help locate Criterion's header files and libraries.
+Next, let's write a Makefile.
+On all platforms, we're going to need the linker flag `-lcriterion`. This tells the linker to link against the Criterion library.
+Then, we're going to add some conditional logic.
+Using `uname`, we check if we are building the program on macOS, and if that is the case, we add additional compiler and linker flags to help locate Criterion's header files and libraries.
 
 Then, we define a target called `test`, which depends on two source files: table.c and test.c.
 For this target, we use a bunch of magic variables and command-line flags:
-CC stands for the C compiler binary, and this is likely going to be either Clang or GCC.
+CC stands for the C compiler binary, and this is ususally going to be either Clang or GCC.
 CFLAGS are the resolved compiler flags.
 -g compiles the binary with debug information.
 $^ (dollar caret) is a special variable that expands to all prerequisites of a target, in this case it's going to be the two C files: table.c and test.c.
--o $@ (dash oh dollar at) uses the special variable $@, which expands to the name of the target, so it's effectively going to expand to -o test, meaning that the binary is going to be called `test`.
+-o $@ (dash oh dollar at) is going to expand to -o test, meaning that the linked binary will be called "test".
 Finally, LDFLAGS are the resolved linker flags.
 
 After this command, we execute the compiled `test` binary. We mark the `test` target as a "phony target", which means Make will always build it and execute it, even if the underlying C files haven't changed.
 
-With the Makefile out of the way, we can go on to write the actual tests.
-
 In a new terminal, run `make test`, and if you have set everything correctly, you should get a pretty and colorful output telling you that your tests have passed.
+
+Next, let's test resizing the table. In test.c, call `growTable` with a pointer to the table and the number 8. Using `cr_assert_eq`, test that `count` equals 0 and that `capacity` equals 8.
+Now, using a different macro, `cr_assert_neq`, assert that `entries` does not equal `NULL`. Then, call `freeTable` with a pointer to the table, and you can copy and paste the assertions that we used for `initTable`.
+
+If you `make test` in the other terminal, the tests should still be passing.
